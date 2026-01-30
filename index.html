@@ -154,49 +154,34 @@
   </div>
 
   <script>
-  (function() {
+  (function () {
     var ua = navigator.userAgent.toLowerCase();
     var isWeChat = /micromessenger/.test(ua);
     var isIOS = /iphone|ipad|ipod/.test(ua);
     var isAndroid = /android/.test(ua);
-    var isHonor = /honor/.test(ua) || /\bhry-/.test(ua) || /\bpct-/.test(ua) || /\blge-/.test(ua);
 
-    var options = [
-      { id: 'appstore', icon: '🍎', text: 'App Store', href: 'https://apps.apple.com/app/bubbly/id6758300285' },
-      { id: 'android', icon: '📱', text: '安卓商店', href: 'market://details?id=io.iftech.bubbly' },
-      { id: 'apk', icon: '📦', text: '安卓APK', href: 'https://m.malink.cn/s/AfiyMr' }
-    ];
+    var IOS_URL = 'https://apps.apple.com/app/bubbly/id6758300285';
+    var ANDROID_APK_URL = 'https://file.market.xiaomi.com/download/AppStore/0201cc99888434a56a2fdbd18af516332d5c2b976/io.iftech.bubbly_1.6.6.apk';
 
-    var primaryId;
-    var availableOptions;
-
-    if (isHonor) {
-      primaryId = 'apk';
-      availableOptions = options.filter(function(o) { return o.id === 'apk'; });
-    } else {
-      primaryId = isIOS ? 'appstore' : isAndroid ? 'android' : 'apk';
-      availableOptions = options;
-    }
-
+    // 微信内：只显示提示
     if (isWeChat) {
       document.getElementById('wechatTip').style.display = 'block';
-    } else {
-      var html = '<div class="download-buttons">';
-      var primary = availableOptions.find(function(o) { return o.id === primaryId; });
-      html += '<a class="btn primary" href="' + primary.href + '"><span class="icon">' + primary.icon + '</span> ' + primary.text + '</a>';
-      html += '</div>';
-      
-      var otherOptions = availableOptions.filter(function(o) { return o.id !== primaryId; });
-      if (otherOptions.length > 0) {
-        html += '<div class="other-links"><div class="other-links-title">其他方式</div><div class="download-buttons grid-2">';
-        otherOptions.forEach(function(o) {
-          html += '<a class="btn" href="' + o.href + '" target="_blank"><span class="icon">' + o.icon + '</span> ' + o.text + '</a>';
-        });
-        html += '</div></div>';
-      }
-      
-      document.getElementById('mainDownload').innerHTML = html;
+      return;
     }
+
+    var html = '<div class="download-buttons">';
+
+    if (isIOS) {
+      html += '<a class="btn primary" href="' + IOS_URL + '"><span class="icon">🍎</span> App Store 下载</a>';
+    } else if (isAndroid) {
+      html += '<a class="btn primary" href="' + ANDROID_APK_URL + '"><span class="icon">📦</span> 下载 Android APK</a>';
+    } else {
+      // 兜底：桌面或未知系统，给 APK
+      html += '<a class="btn primary" href="' + ANDROID_APK_URL + '"><span class="icon">📦</span> 下载 APK</a>';
+    }
+
+    html += '</div>';
+    document.getElementById('mainDownload').innerHTML = html;
   })();
 
   function showMask() { document.getElementById('wxMask').classList.add('show'); }
