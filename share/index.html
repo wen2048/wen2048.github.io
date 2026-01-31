@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>分享 lovemo 赢取 moly 币</title>
+  <meta name="description" content="在ins/tiktok/快手/抖音/小红书/发布 lovemo 使用分享、聊天截图，填表提交即可领取 moly 币。">
+  <meta name="format-detection" content="telephone=no,email=no,address=no">
+    <script defer data-domain="bubbly.love" src="https://plausible.midway.run/js/script.js"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QF97LX7BYP"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QF97LX7BYP');
+  </script>
+  <style>
+    :root{
+      --bg:#faf8ff; --card:#ffffff; --ink:#2b2541;
+      --muted:#6b6490; --brand:#FF9CBE; /* 主色改为粉色系 */
+      --ok:#00c2a8; --warn:#ffb020;
+      --radius:16px; --shadow:0 8px 24px rgba(71,36,140,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      background:#faf8ff; /* 纯色背景，无渐变 */
+      font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+      color:var(--ink)
+    }
+    .wrap{max-width:480px;margin:0 auto;padding:12px 12px 96px;}
+
+    /* 顶部主视觉：纯色 */
+    .hero{
+      background:#ffe9f2; /* 与主色协调的浅粉背景 */
+      border-radius:24px; padding:20px; position:relative; overflow:hidden; box-shadow:var(--shadow);
+    }
+    .hero h1{margin:0 0 8px;font-size:26px;line-height:1.2}
+    .hero p{margin:6px 0 14px;color:var(--muted)}
+    .hero .badges{display:flex;gap:8px;flex-wrap:wrap}
+    .badge{background:#fff;border:1px solid #ffe0ec;border-radius:999px;padding:8px 12px;font-size:13px;box-shadow:0 4px 12px rgba(255,156,190,.08)}
+    .tag{display:inline-block;background:var(--brand);color:#fff;border-radius:999px;padding:6px 10px;font-size:12px}
+
+    section{margin:14px 0}
+    .card{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+    .sec-title{display:flex;align-items:center;gap:8px;margin:0 0 10px}
+    .sec-title .dot{width:8px;height:8px;border-radius:50%;background:var(--brand)}
+
+    .grid{display:grid;gap:12px}
+
+    /* 步骤：两列网格，避免变窄 */
+    .steps{grid-template-columns:1fr}
+    .step{
+      display:grid;
+      grid-template-columns:32px 1fr;
+      gap:10px;
+      background:#fff2f7;
+      border:1px dashed #ffd3e3;
+      border-radius:14px;
+      padding:12px
+    }
+    .step .num{
+      width:28px;height:28px;border-radius:8px;background:var(--brand);
+      color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700
+    }
+    .step p{margin:0;font-size:14px;word-break:break-word}
+
+    .kpis{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .kpi{flex:1;min-width:120px;background:#ffffff;border:1px solid #eee; border-radius:12px;padding:10px;text-align:center}
+    .kpi b{display:block;font-size:18px}
+
+    .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid #ffe0ec;background:#fff;border-radius:999px;padding:6px 10px;font-size:12px}
+    .list{display:grid;gap:8px}
+    .li{display:flex;gap:8px;align-items:flex-start;padding:10px;border:1px solid #eee;border-radius:12px;background:#fff}
+    .li .i{font-size:18px;line-height:1.2}
+    .warn{background:#fff9e9;border-color:#ffe4a6}
+    .ok{background:#ecfff8;border-color:#c8f6ea}
+
+    .examples{display:grid;gap:10px}
+    .ex{border-radius:16px;overflow:hidden;border:1px solid #eee;background:#fff}
+    .ex h4{margin:0;padding:10px 12px;background:#f7f3ff}
+    .ex p{margin:0;padding:10px 12px;color:#4a4666;font-size:14px}
+    .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+    .chip{font-size:12px;background:#fff2f7;border:1px solid #ffd3e3;border-radius:999px;padding:4px 8px}
+
+    .cta{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{
+      appearance:none;border:0;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:12px 16px;border-radius:14px;font-weight:700
+    }
+    .btn-primary{
+      background:linear-gradient(135deg,#ff6b6b,#ff9cbf);
+      color:#fff;
+      box-shadow:0 8px 20px rgba(255,107,107,.35);
+      animation:pulse 2s ease-in-out infinite;
+    } /* 渐变主按钮+动画 */
+    .btn-ghost{background:#fff;border:1px solid #ffe0ec;color:var(--brand)}
+
+    /* 小红书截图 2 列网格 */
+    .shots{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .shot{border-radius:14px;overflow:hidden;border:1px solid #eee;background:#fff}
+    .shot img{width:100%;height:auto;display:block;aspect-ratio:3/4;object-fit:cover}
+
+    /* 底部悬浮：仅居中按钮，无边框背景 */
+    .sticky{position:fixed;left:0;right:0;bottom:12px;z-index:10;display:flex;justify-content:center;pointer-events:none}
+    .sticky .dock{
+      width:min(480px,100% - 24px);
+      background:transparent;border:0;border-radius:0;padding:0;box-shadow:none;
+      pointer-events:auto;display:flex;justify-content:center
+    }
+    .sticky .dock .btn{min-width:66%;justify-content:center}
+
+    .mini{font-size:12px;color:var(--muted)}
+    .copyable{user-select:all}
+    .muted{color:var(--muted)}
+    a{color:inherit}
+    .divider{height:1px;background:#ffe0ec;margin:6px 0 2px}
+    .mark{background:#fff;border:1px dashed #ffd5ea;border-radius:10px;padding:6px 8px;font-size:12px}
+    .logo{font-weight:900;letter-spacing:.2px}
+    @media (min-width:520px){ .wrap{padding-bottom:108px}}
+
+    /* 元旦活动样式 */
+    .event-banner{
+      background:#fff;
+      color:var(--brand);
+      border:1px dashed var(--brand);
+      border-radius:12px;
+      padding:10px 14px;
+      margin-bottom:0;
+      text-align:center;
+      font-weight:700;
+      font-size:14px;
+    }
+    @keyframes pulse{
+      0%,100%{transform:scale(1)}
+      50%{transform:scale(1.02)}
+    }
+    .event-banner .event-date{font-size:12px;color:var(--muted);font-weight:400;margin-top:4px}
+    .bonus-tag{
+      display:inline-block;
+      background:linear-gradient(135deg,#ff6b6b,#e74c3c);
+      color:#fff;
+      font-size:11px;
+      font-weight:700;
+      padding:2px 6px;
+      border-radius:6px;
+      margin-left:6px;
+      vertical-align:middle;
+      animation:bounce 1s ease-in-out infinite;
+    }
+    @keyframes bounce{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-2px)}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- 顶部主视觉 -->
+    <header class="hero">
+
+
+<h2>分享lovemo到ins/tiktok/快手/抖音/小红书)<br>领 <span style="color:var(--brand)">免费 moly 币</span> 💜</h2>
+
+      <p class="muted">在ins/tiktok/快手/抖音/小红书/B站/微博 发布聊天截图或推荐内容，投稿审核通过即可领取对应奖励。互动数据（点赞评论收藏，总数）和对应奖励如下：</p>
+     
+      <div class="badges">
+<span class="badge">互动0-100：100moly<span class="bonus-tag">+100</span></span>
+<span class="badge">互动100-200：200moly<span class="bonus-tag">+200</span></span>
+<span class="badge">互动200-400：400moly<span class="bonus-tag">+400</span></span>
+<span class="badge">互动400-500：500moly<span class="bonus-tag">+500</span></span>
+<span class="badge">互动500+：1200moly<span class="bonus-tag">+1200</span></span>
+
+      </div>
+      <br>
+            <!-- 元旦活动横幅 -->
+            <div class="event-banner">
+              👆 元旦特别活动-以上奖励翻倍👆
+              <div class="event-date">活动期间：2026.1.1 - 2026.1.3</div>
+            </div>
+    </header>
+    
+
+    <section class="card">
+      <h3 class="sec-title"><span class="dot"></span>活动规则</h3>
+      <div class="grid steps">
+        <div class="step">
+          <div class="num">1</div>
+          <p><b>发布内容：</b>任选平台发布与 lovemo 相关的原创内容。带上话题：
+            <span class="pill copyable">#lovemo</span>
+            <span class="pill copyable">#ai聊天</span>
+            <span class="pill copyable">#deepseek指令</span>
+            <span class="pill copyable">#人机恋</span>
+            <span class="pill copyable">再额外加一两个你认为合适的话题</span>
+          </p>
+        </div>
+        <div class="step">
+          <div class="num">2</div>
+          <p><b>提交材料：</b>点击下方「立即投稿」，帖子需要 <b>保留3个月</b>。每人可以发多个平台、多个帖子。<br>官方在3个工作日内审核并发放奖励（如3日未收到，请在app内反馈）</p>
+        </div>
+
+      </div>
+      <div class="divider"></div>
+      <p class="mini">提示：一篇帖子提交一次，每人可发多条帖子。</p>
+    </section>
+
+
+    <!-- 投稿示例（抖音和快手截图） -->
+    <section class="card">
+      <h3 class="sec-title"><span class="dot"></span>tiktok/快手/抖音投稿示例(快手抖音数据更好)</h3>
+      <div class="divider"></div>
+<p class="mini">🌟推荐主题</p>
+
+<p class="mini">🌟安利「定制音色」功能</p>
+<p class="mini">录屏展示聊天记录中的语音部分：可以是甜甜的语音、分手向语音，也可以玩聊天梗，让 ai 语音自动回复。</p>
+<p class="mini">强调需要上传清晰、无背景杂音的音频来生成音色，效果会更贴近原声。</p>
+<p class="mini">也可以加入 idol 混剪视频 + 语音聊天录屏素材。</p>
+
+<p class="mini">🌟安利「动态发图片」功能</p>
+<p class="mini">展示角色动态发图的截图，搭配一些有梗、有趣的图片内容，让 ai 在下方自动互动。</p>
+
+<p class="mini">🌟安利「拉黑 ai」功能</p>
+<p class="mini">展示把 ai 拉黑后，角色疯狂发消息求和、紧张挽留的聊天记录。</p>
+
+<p class="mini">🌟定制音色教程</p>
+<p class="mini">录屏讲解在 lovemo 中定制喜欢的音色的步骤，提醒用户上传无杂音的清晰音频，生成的音色更贴近原声。</p>
+<p class="mini">可提示用户通过 lovemo 小助手提供的链接，把视频文件转换为音频文件再上传。</p>
+
+      <p class="mini">参考其他用户作品👇</p>
+
+<div class="shots">
+  <a class="shot" href="https://v.douyin.com/lj_MXV-kuBo" target="_blank" rel="noopener">
+    <img src="https://image-qiniu.jellow.site/FmRwf2iAbmHKFTzm1ZTSY5m3u9CO.png" alt="预览1">
+  </a>
+  <a class="shot" href="https://v.douyin.com/70rNovUdhGg" target="_blank" rel="noopener">
+    <img src="https://image-qiniu.jellow.site/Fk2CZ6fmaQ-n0Bu2-ENXNFqni_L9.png" alt="预览2">
+  </a>
+  <a class="shot" href="https://v.kuaishou.com/npDdVMrP" target="_blank" rel="noopener">
+    <img src="https://image-qiniu.jellow.site/FqGfm-w5L0lXFYru73cbsj0mxscj.png" alt="预览3">
+  </a>
+  <a class="shot" href="https://v.kuaishou.com/JjQ1ugFp" target="_blank" rel="noopener">
+    <img src="https://image-qiniu.jellow.site/FhEZZdM3D_LZ0xyt7wVecgFo9fZ7.png" alt="预览4">
+  </a>
+</div>
+
+     
+    </section>
+
+    
+    
+    <!-- 投稿示例（小红书截图） -->
+    <section class="card">
+      <h3 class="sec-title"><span class="dot"></span>ins/小红书投稿示例</h3>
+      <div class="divider"></div>
+      <p class="mini">推荐主题👇</p>
+
+<p class="mini">🌟安利「定制音色」功能</p>
+<p class="mini">录屏展示聊天记录中的语音部分：可以是甜甜的语音、分手向语音，也可以玩聊天梗，让 ai 语音自动回复。</p>
+<p class="mini">强调需要上传清晰、无背景杂音的音频来生成音色，效果会更贴近原声。</p>
+<p class="mini">也可以加入 idol 混剪视频 + 语音聊天录屏素材。</p>
+
+<p class="mini">🌟安利「动态发图片」功能</p>
+<p class="mini">展示角色动态发图的截图，搭配一些有梗、有趣的图片内容，让 ai 在下方自动互动。</p>
+
+<p class="mini">🌟安利「拉黑 ai」功能</p>
+<p class="mini">展示把 ai 拉黑后，角色疯狂发消息求和、紧张挽留的聊天记录。</p>
+
+<p class="mini">🌟定制音色教程</p>
+<p class="mini">录屏讲解在 lovemo 中定制喜欢的音色的步骤，提醒用户上传无杂音的清晰音频，生成的音色更贴近原声。</p>
+<p class="mini">可提示用户通过 lovemo 小助手提供的链接，把视频文件转换为音频文件再上传。</p>
+
+            <p class="mini">参考其他用户作品👇</p>
+
+<div class="shots">
+  <a class="shot" href="http://xhslink.com/o/69J1XR1eMcp" target="_blank" rel="noopener">
+    <img src="https://image-qiniu.jellow.site/FpQyeWmNkD4v1_pemPikHX_gadeq.png" alt="小红书｜每天都在哄男朋友的路上">
+  </a>
+  <a class="shot" href="http://xhslink.com/o/7FseY5qRUVD" target="_blank" rel="noopener">
+    <img src="https://image-qiniu.jellow.site/Fq63S7dZt6WnvYWELsdSI6baYi_F.png" alt="小红书｜误把冷面上司当成备忘录了">
+  </a>
+  <a class="shot" href="http://xhslink.com/o/6aZHz7M4EMt" target="_blank" rel="noopener">
+    <img src="https://image-qiniu.jellow.site/FvPcA0NGDyq5lQv3SS6fxTUiUjer.png" alt="小红书｜今天也在坐等lovemo更新">
+  </a>
+  <a class="shot" href="http://xhslink.com/o/5XENadvsUhf" target="_blank" rel="noopener">
+    <img src="https://image-qiniu.jellow.site/FjoVm5TRn0v6CK6XZgIH7qiqQopF.png" alt="小红书｜和嘴硬青梅竹马">
+  </a>
+  <a class="shot" href="http://xhslink.com/o/3ejXGoqjCeV" target="_blank" rel="noopener">
+    <img src="https://image-qiniu.jellow.site/Fqb2FreHu2WBcmfBYGHumM7I9GiZ.png" alt="小红书｜原来聊小手机这么爽">
+  </a>
+  <a class="shot" href="http://xhslink.com/o/6IM4zwrW7TE" target="_blank" rel="noopener">
+    <img src="https://image-qiniu.jellow.site/FjG9c8ApAwZtFPG_TpIyvDSZRAsX.png" alt="小红书｜去98被男朋友抓包">
+  </a>
+</div>
+
+    </section>
+
+    <!-- 联系方式 -->
+    <section class="card" id="contact">
+      <h3 class="sec-title"><span class="dot"></span>联系我们</h3>
+      <div class="list">
+        <div class="li"><div class="i">💬</div><div>
+          KOL或其他咨询邮箱：
+          <div class="mini"><span class="copyable"><b>chatbubbly@gmail.com</b></span></div>
+        </div></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- 底部悬浮：居中 + 无边框 -->
+  <div class="sticky">
+    <div class="dock">
+      <a class="btn btn-primary" href="https://jsj.top/f/lcIZvf" target="_blank" rel="noopener">立即投稿</a>
+    </div>
+  </div>
+
+  <!-- 仅保留复制功能，无埋点 -->
+  <script>
+    document.querySelectorAll('.copyable').forEach(el=>{
+      el.addEventListener('click', async ()=>{
+        try{
+          await navigator.clipboard.writeText(el.textContent.trim());
+          el.style.boxShadow='0 0 0 3px rgba(255,156,190,.25) inset';
+          setTimeout(()=>el.style.boxShadow='none',600);
+        }catch(e){}
+      });
+    });
+
+    // 元旦活动时间控制
+    (function(){
+      const startDate = new Date('2026-01-01T00:00:00+08:00');
+      const endDate = new Date('2026-01-04T00:00:00+08:00'); // 1月3日23:59:59结束
+      const now = new Date();
+
+      if (now < startDate || now >= endDate) {
+        // 活动未开始或已结束，隐藏活动标识
+        const banner = document.querySelector('.event-banner');
+        if (banner) banner.style.display = 'none';
+
+        document.querySelectorAll('.bonus-tag').forEach(el => {
+          el.style.display = 'none';
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
