@@ -9,6 +9,7 @@
   <meta property="og:description" content="bubbly 是一个免费的 AI 聊天应用，提供情绪陪伴与个性化对话，随时理解并陪伴你。">
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#fce7f3">
+
   <script defer data-domain="bubbly.love" src="https://plausible.midway.run/js/script.js"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -16,6 +17,7 @@
     gtag('js', new Date());
     gtag('config', 'G-QF97LX7BYP');
   </script>
+
   <style>
     * { box-sizing: border-box; }
     html { overflow-x: hidden; }
@@ -52,9 +54,6 @@
     .badge { font-size: 12px; padding: 6px 10px; border-radius: 999px; background: rgba(255,255,255,.8); border: 1px solid #ffffffb3; }
 
     .download-buttons { display: grid; grid-template-columns: 1fr; gap: 14px; max-width: 600px; margin: 24px auto 0; }
-    .download-buttons.grid-2 { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    .download-buttons.grid-2 .btn { padding: 14px 12px; font-size: 13px; }
-    .download-buttons.grid-2 .btn .icon { font-size: 16px; }
     .btn {
       display: flex; align-items: center; justify-content: center; gap: 10px;
       padding: 18px 24px; border-radius: 18px; font-weight: 600; font-size: 15px;
@@ -63,14 +62,12 @@
       border: 1px solid rgba(255,255,255,.3);
       box-shadow: 0 8px 24px rgba(255,122,184,.15);
       transition: all .25s ease;
+      cursor: pointer;
     }
     .btn:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(255,122,184,.25); }
     .btn.primary { background: linear-gradient(135deg, #ff9ecf, #ff7ab8); color: #fff; box-shadow: 0 12px 32px rgba(255,122,184,.35); }
     .btn.primary:hover { box-shadow: 0 16px 40px rgba(255,122,184,.45); }
     .btn .icon { font-size: 20px; }
-
-    .other-links { margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.3); }
-    .other-links-title { font-size: 14px; opacity: .7; margin-bottom: 12px; }
 
     .tip { margin-top: 16px; font-size: 13px; opacity: .7; }
     footer { margin-top: 40px; font-size: 14px; }
@@ -104,6 +101,7 @@
     @media (prefers-reduced-motion: reduce) { .heart, .sparkle { animation: none; } }
   </style>
 </head>
+
 <body>
   <div class="decor" aria-hidden="true">
     <span class="heart" style="left:8%; animation-duration:20s; animation-delay:-2s"></span>
@@ -130,13 +128,13 @@
         <span class="badge">情绪共鸣</span>
       </div>
 
-      <!-- 微信内 -->
+      <!-- 微信内：只显示提示 -->
       <div id="wechatTip" style="display:none">
         <a class="btn primary" href="#" onclick="showMask();return false"><span class="icon">📱</span> 立即下载</a>
         <p class="tip">你在微信内，请"在浏览器中打开"后再下载</p>
       </div>
 
-      <!-- 外部浏览器 -->
+      <!-- 外部浏览器：注入按钮 -->
       <div id="mainDownload"></div>
 
       <footer>
@@ -160,28 +158,101 @@
     var isIOS = /iphone|ipad|ipod/.test(ua);
     var isAndroid = /android/.test(ua);
 
-    var IOS_URL = 'https://apps.apple.com/app/bubbly/id6758300285';
+    // 你的目标包名
+    var PACKAGE_ID = 'io.iftech.bubbly';
+
+    // scheme 打开系统“应用商店”（由手机上默认/可用的 market handler 处理）
+    var MARKET_URL = 'market://details?id=' + encodeURIComponent(PACKAGE_ID);
+
+    // APK 兜底下载
     var ANDROID_APK_URL = 'https://file.market.xiaomi.com/download/AppStore/0c71ff0b725b1484c9e643ad571f46cfa2814b458/io.iftech.bubbly_1.6.7.apk';
 
-    // 微信内：只显示提示
+    // iOS
+    var IOS_URL = 'https://apps.apple.com/app/bubbly/id6758300285';
+
+    // ===== 微信内：提示遮罩 =====
     if (isWeChat) {
       document.getElementById('wechatTip').style.display = 'block';
       return;
     }
 
+    // ===== 国产品牌识别（走商店）=====
+    function isChinaBrandAndroid(uaLower) {
+      // 华为/荣耀
+      if (/huawei/.test(uaLower)) return true;
+      // 小米/红米（有些 UA 会有 “mi ” 或 “miui”）
+      if (/xiaomi|redmi|miui|\bmi\s/.test(uaLower)) return true;
+      // if (/huawei|honor/.test(uaLower)) return true;
+      // 小米/红米（有些 UA 会有 “mi ” 或 “miui”）
+      // if (/xiaomi|redmi|miui|\bmi\s/.test(uaLower)) return true;
+      // OPPO / realme（realme 常共用 OPPO 体系）
+      // if (/oppo|realme/.test(uaLower)) return true;
+      // vivo / iqoo
+      // if (/vivo|iqoo/.test(uaLower)) return true;
+
+      return false;
+    }
+
+    // ===== 尝试打开 market://，失败则跳 APK =====
+    function openMarketThenFallbackApk() {
+      var start = Date.now();
+      var fallbackTimer = setTimeout(function () {
+        // 如果浏览器没跳走（通常说明 market scheme 不生效），就去 APK
+        // 用时间阈值避免某些浏览器“卡顿”误判
+        if (Date.now() - start < 1600) {
+          window.location.href = ANDROID_APK_URL;
+        }
+      }, 1200);
+
+      // 页面失焦/隐藏通常意味着成功唤起了外部应用（商店）
+      function clear() {
+        clearTimeout(fallbackTimer);
+        window.removeEventListener('pagehide', clear);
+        document.removeEventListener('visibilitychange', onVis);
+        window.removeEventListener('blur', clear);
+      }
+      function onVis() {
+        if (document.visibilityState === 'hidden') clear();
+      }
+
+      window.addEventListener('pagehide', clear);
+      window.addEventListener('blur', clear);
+      document.addEventListener('visibilitychange', onVis);
+
+      // 尝试打开商店
+      window.location.href = MARKET_URL;
+    }
+
+    // ===== 渲染按钮 =====
     var html = '<div class="download-buttons">';
 
     if (isIOS) {
       html += '<a class="btn primary" href="' + IOS_URL + '"><span class="icon">🍎</span> App Store 下载</a>';
     } else if (isAndroid) {
-      html += '<a class="btn primary" href="' + ANDROID_APK_URL + '"><span class="icon">📦</span> 下载 Android APK</a>';
+      if (isChinaBrandAndroid(ua)) {
+        // 国产品牌：按钮点击后尝试 market://，失败自动 APK
+        html += '<a class="btn primary" href="#" id="goMarket"><span class="icon">🛍️</span> 打开应用商店安装</a>';
+        html += '<p class="tip">若无法打开应用商店，将自动下载 APK</p>';
+      } else {
+        // 其他安卓：直接 APK
+        html += '<a class="btn primary" href="' + ANDROID_APK_URL + '"><span class="icon">📦</span>下载安卓安装包</a>';
+      }
     } else {
-      // 兜底：桌面或未知系统，给 APK
-      html += '<a class="btn primary" href="' + ANDROID_APK_URL + '"><span class="icon">📦</span> 下载 APK</a>';
+      // 桌面/未知：给 APK
+      html += '<a class="btn primary" href="' + ANDROID_APK_URL + '"><span class="icon">📦</span>下载安卓安装包</a>';
     }
 
     html += '</div>';
     document.getElementById('mainDownload').innerHTML = html;
+
+    // 绑定事件（国产安卓按钮）
+    var goMarketBtn = document.getElementById('goMarket');
+    if (goMarketBtn) {
+      goMarketBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        openMarketThenFallbackApk();
+      });
+    }
   })();
 
   function showMask() { document.getElementById('wxMask').classList.add('show'); }
