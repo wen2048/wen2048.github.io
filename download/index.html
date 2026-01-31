@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>bubbly — 免费的 AI 聊天伴侣，情绪陪伴与个性化互动</title>
+  <meta name="description" content="bubbly 是一个免费的 AI 聊天应用，类似lovemo、Character.AI 代替, Talkie 代替, AI陪伴, 虛擬戀人, AI男友, AI女友, 角色扮演, bimobimo">
+  <meta property="og:title" content="bubbly — 免费的 AI 聊天伴侣，情绪陪伴与个性化互动">
+  <meta property="og:description" content="bubbly 是一个免费的 AI 聊天应用，提供情绪陪伴与个性化对话，随时理解并陪伴你。">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#fce7f3">
+
+  <script defer data-domain="bubbly.love" src="https://plausible.midway.run/js/script.js"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QF97LX7BYP');
+  </script>
+
+  <style>
+    * { box-sizing: border-box; }
+    html { overflow-x: hidden; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: #3a2a3f;
+      background:
+        radial-gradient(1200px at 10% -10%, #fce7f3, transparent 60%),
+        radial-gradient(900px at 110% 20%, #e0f2fe, transparent 55%),
+        radial-gradient(1000px at 50% 120%, #fff0f5, transparent 60%),
+        linear-gradient(#fff, #fff7fb);
+      overflow-x: hidden;
+    }
+
+    .wrap { min-height: 100svh; display: grid; place-items: center; padding: 24px; position: relative; z-index: 2; }
+    .card {
+      width: min(920px, 92vw); padding: 56px 28px 40px; border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255,255,255,.65), rgba(255,255,255,.35));
+      backdrop-filter: blur(12px) saturate(120%);
+      border: 1px solid #ffffffaa;
+      box-shadow: 0 20px 60px rgba(200,150,200,.25);
+      text-align: center;
+    }
+    .brand {
+      font-size: clamp(44px, 7vw, 84px); line-height: 1; margin: 0 0 14px; font-weight: 900;
+      background: linear-gradient(90deg, #ffadd6, #ffc5e6 40%, #93c5fd 85%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      text-shadow: 0 6px 24px rgba(255,160,210,.3);
+    }
+    .subtitle { font-size: clamp(16px, 2.6vw, 22px); opacity: .85; margin: 0 0 26px; }
+
+    .badges { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin: 0 0 26px; }
+    .badge { font-size: 12px; padding: 6px 10px; border-radius: 999px; background: rgba(255,255,255,.8); border: 1px solid #ffffffb3; }
+
+    .download-buttons { display: grid; grid-template-columns: 1fr; gap: 14px; max-width: 600px; margin: 24px auto 0; }
+    .btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 18px 24px; border-radius: 18px; font-weight: 600; font-size: 15px;
+      text-decoration: none; color: #3a2a3f;
+      background: linear-gradient(135deg, rgba(255,255,255,.9), rgba(255,255,255,.7));
+      border: 1px solid rgba(255,255,255,.3);
+      box-shadow: 0 8px 24px rgba(255,122,184,.15);
+      transition: all .25s ease;
+      cursor: pointer;
+    }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(255,122,184,.25); }
+    .btn.primary { background: linear-gradient(135deg, #ff9ecf, #ff7ab8); color: #fff; box-shadow: 0 12px 32px rgba(255,122,184,.35); }
+    .btn.primary:hover { box-shadow: 0 16px 40px rgba(255,122,184,.45); }
+    .btn .icon { font-size: 20px; }
+
+    .tip { margin-top: 16px; font-size: 13px; opacity: .7; }
+    footer { margin-top: 40px; font-size: 14px; }
+    footer a { color: #ff90c2; text-decoration: none; }
+
+    /* 微信遮罩 */
+    .mask { position: fixed; inset: 0; background: rgba(0,0,0,.6); display: none; align-items: flex-start; justify-content: center; padding: 24px; z-index: 50; }
+    .mask.show { display: flex; }
+    .mask .sheet { background: #fff; border-radius: 16px; padding: 18px 16px; width: min(560px, 92vw); box-shadow: 0 12px 40px rgba(0,0,0,.18); }
+    .mask h3 { margin: 0 0 10px; font-size: 18px; }
+    .mask p { margin: 0; font-size: 14px; color: #333; }
+    .mask .close { margin-top: 14px; display: inline-block; font-size: 14px; color: #666; text-decoration: underline; cursor: pointer; }
+
+    /* 装饰 */
+    .decor { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 1; }
+    .heart {
+      position: absolute; width: 22px; height: 22px;
+      background: linear-gradient(145deg, #ffe1f0, #ffcbe4);
+      filter: drop-shadow(0 6px 10px rgba(255,144,194,.25)); opacity: .8;
+      animation: float 18s linear infinite, sway 6s ease-in-out infinite;
+    }
+    .heart::before, .heart::after { content: ""; position: absolute; width: 22px; height: 22px; border-radius: 50%; background: inherit; }
+    .heart::before { top: -11px; left: 0; }
+    .heart::after { left: 11px; top: 0; }
+    @keyframes float { from { top: 100vh; } to { top: -20vh; } }
+    @keyframes sway { 0%, 100% { transform: translateX(-12px) rotate(-45deg); } 50% { transform: translateX(12px) rotate(-45deg); } }
+
+    .sparkle { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #fff; opacity: .9; animation: twinkle 3.6s ease-in-out infinite; }
+    @keyframes twinkle { 0%, 100% { transform: scale(.8); opacity: .3; } 50% { transform: scale(1.4); opacity: .9; } }
+
+    @media (prefers-reduced-motion: reduce) { .heart, .sparkle { animation: none; } }
+  </style>
+</head>
+
+<body>
+  <div class="decor" aria-hidden="true">
+    <span class="heart" style="left:8%; animation-duration:20s; animation-delay:-2s"></span>
+    <span class="heart" style="left:22%; animation-duration:17s; animation-delay:-8s"></span>
+    <span class="heart" style="left:46%; animation-duration:23s; animation-delay:-12s"></span>
+    <span class="heart" style="left:70%; animation-duration:19s; animation-delay:-5s"></span>
+    <span class="heart" style="left:88%; animation-duration:21s; animation-delay:-10s"></span>
+    <span class="sparkle" style="top:16%; left:12%; animation-delay:-.6s"></span>
+    <span class="sparkle" style="top:22%; left:78%; animation-delay:-1.2s"></span>
+    <span class="sparkle" style="top:48%; left:42%; animation-delay:-.3s"></span>
+    <span class="sparkle" style="top:68%; left:26%; animation-delay:-1.8s"></span>
+    <span class="sparkle" style="top:76%; left:66%; animation-delay:-.9s"></span>
+  </div>
+
+  <div class="wrap">
+    <section class="card">
+      <h1 class="brand">bubbly</h1>
+      <p class="subtitle">可爱陪伴的 AI 聊天 · 温暖每一天</p>
+
+      <div class="badges" aria-hidden="true">
+        <span class="badge">治愈陪聊</span>
+        <span class="badge">可爱氛围</span>
+        <span class="badge">睡前安抚</span>
+        <span class="badge">情绪共鸣</span>
+      </div>
+
+      <!-- 微信内：只显示提示 -->
+      <div id="wechatTip" style="display:none">
+        <a class="btn primary" href="#" onclick="showMask();return false"><span class="icon">📱</span> 立即下载</a>
+        <p class="tip">你在微信内，请"在浏览器中打开"后再下载</p>
+      </div>
+
+      <!-- 外部浏览器：注入按钮 -->
+      <div id="mainDownload"></div>
+
+      <footer>
+        <p>官方邮箱 <a href="mailto:chatbubbly@gmail.com">chatbubbly@gmail.com</a></p>
+      </footer>
+    </section>
+  </div>
+
+  <div id="wxMask" class="mask" onclick="hideMask()">
+    <div class="sheet" onclick="event.stopPropagation()">
+      <h3>在浏览器中打开以下载</h3>
+      <p>微信不支持下载。请点击右上角「…」，选择「在浏览器中打开」</p>
+      <span class="close" onclick="hideMask()">我知道了</span>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    var ua = navigator.userAgent.toLowerCase();
+    var isWeChat = /micromessenger/.test(ua);
+    var isIOS = /iphone|ipad|ipod/.test(ua);
+    var isAndroid = /android/.test(ua);
+
+    // 你的目标包名
+    var PACKAGE_ID = 'io.iftech.bubbly';
+
+    // scheme 打开系统“应用商店”（由手机上默认/可用的 market handler 处理）
+    var MARKET_URL = 'market://details?id=' + encodeURIComponent(PACKAGE_ID);
+
+    // APK 兜底下载
+    var ANDROID_APK_URL = 'https://file.market.xiaomi.com/download/AppStore/0c71ff0b725b1484c9e643ad571f46cfa2814b458/io.iftech.bubbly_1.6.7.apk';
+
+    // iOS
+    var IOS_URL = 'https://apps.apple.com/app/bubbly/id6758300285';
+
+    // ===== 微信内：提示遮罩 =====
+    if (isWeChat) {
+      document.getElementById('wechatTip').style.display = 'block';
+      return;
+    }
+
+    // ===== 国产品牌识别（走商店）=====
+    function isChinaBrandAndroid(uaLower) {
+      // 华为/荣耀
+      if (/huawei/.test(uaLower)) return true;
+      // 小米/红米（有些 UA 会有 “mi ” 或 “miui”）
+      if (/xiaomi|redmi|miui|\bmi\s/.test(uaLower)) return true;
+      // if (/huawei|honor/.test(uaLower)) return true;
+      // 小米/红米（有些 UA 会有 “mi ” 或 “miui”）
+      // if (/xiaomi|redmi|miui|\bmi\s/.test(uaLower)) return true;
+      // OPPO / realme（realme 常共用 OPPO 体系）
+      // if (/oppo|realme/.test(uaLower)) return true;
+      // vivo / iqoo
+      // if (/vivo|iqoo/.test(uaLower)) return true;
+
+      return false;
+    }
+
+    // ===== 尝试打开 market://，失败则跳 APK =====
+    function openMarketThenFallbackApk() {
+      var start = Date.now();
+      var fallbackTimer = setTimeout(function () {
+        // 如果浏览器没跳走（通常说明 market scheme 不生效），就去 APK
+        // 用时间阈值避免某些浏览器“卡顿”误判
+        if (Date.now() - start < 1600) {
+          window.location.href = ANDROID_APK_URL;
+        }
+      }, 1200);
+
+      // 页面失焦/隐藏通常意味着成功唤起了外部应用（商店）
+      function clear() {
+        clearTimeout(fallbackTimer);
+        window.removeEventListener('pagehide', clear);
+        document.removeEventListener('visibilitychange', onVis);
+        window.removeEventListener('blur', clear);
+      }
+      function onVis() {
+        if (document.visibilityState === 'hidden') clear();
+      }
+
+      window.addEventListener('pagehide', clear);
+      window.addEventListener('blur', clear);
+      document.addEventListener('visibilitychange', onVis);
+
+      // 尝试打开商店
+      window.location.href = MARKET_URL;
+    }
+
+    // ===== 渲染按钮 =====
+    var html = '<div class="download-buttons">';
+
+    if (isIOS) {
+      html += '<a class="btn primary" href="' + IOS_URL + '"><span class="icon">🍎</span> App Store 下载</a>';
+    } else if (isAndroid) {
+      if (isChinaBrandAndroid(ua)) {
+        // 国产品牌：按钮点击后尝试 market://，失败自动 APK
+        html += '<a class="btn primary" href="#" id="goMarket"><span class="icon">🛍️</span> 打开应用商店安装</a>';
+        html += '<p class="tip">若无法打开应用商店，将自动下载 APK</p>';
+      } else {
+        // 其他安卓：直接 APK
+        html += '<a class="btn primary" href="' + ANDROID_APK_URL + '"><span class="icon">📦</span>下载安卓安装包</a>';
+      }
+    } else {
+      // 桌面/未知：给 APK
+      html += '<a class="btn primary" href="' + ANDROID_APK_URL + '"><span class="icon">📦</span>下载安卓安装包</a>';
+    }
+
+    html += '</div>';
+    document.getElementById('mainDownload').innerHTML = html;
+
+    // 绑定事件（国产安卓按钮）
+    var goMarketBtn = document.getElementById('goMarket');
+    if (goMarketBtn) {
+      goMarketBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        openMarketThenFallbackApk();
+      });
+    }
+  })();
+
+  function showMask() { document.getElementById('wxMask').classList.add('show'); }
+  function hideMask() { document.getElementById('wxMask').classList.remove('show'); }
+  </script>
+</body>
+</html>
