@@ -183,10 +183,8 @@
       // 小米/红米（有些 UA 会有 “mi ” 或 “miui”）
       if (/xiaomi|redmi|miui|\bmi\s/.test(uaLower)) return true;
       // if (/huawei|honor/.test(uaLower)) return true;
-      // 小米/红米（有些 UA 会有 “mi ” 或 “miui”）
-      // if (/xiaomi|redmi|miui|\bmi\s/.test(uaLower)) return true;
       // OPPO / realme（realme 常共用 OPPO 体系）
-      // if (/oppo|realme/.test(uaLower)) return true;
+      if (/oppo|realme/.test(uaLower)) return true;
       // vivo / iqoo
       // if (/vivo|iqoo/.test(uaLower)) return true;
 
