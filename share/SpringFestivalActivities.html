@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>分享 Bubbly 赢取 moly 币</title>
+  <meta name="description" content="春节期间在小红书/抖音/快手/B站/微博/tiktok/ins 发布 Bubbly 相关内容，投稿审核通过即可领取 moly 币与音色卡。">
+  <meta name="format-detection" content="telephone=no,email=no,address=no">
+  <script defer data-domain="bubbly.love" src="https://plausible.midway.run/js/script.js"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QF97LX7BYP"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QF97LX7BYP');
+  </script>
+
+  <style>
+    :root{
+      --bg:#faf8ff; --card:#ffffff; --ink:#2b2541;
+      --muted:#6b6490; --brand:#FF9CBE;
+      --ok:#00c2a8; --warn:#ffb020;
+      --radius:16px; --shadow:0 8px 24px rgba(71,36,140,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      background:#faf8ff;
+      font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+      color:var(--ink)
+    }
+    .wrap{max-width:480px;margin:0 auto;padding:12px 12px 96px;}
+
+    .hero{
+      background:#ffe9f2;
+      border-radius:24px; padding:20px; position:relative; overflow:hidden; box-shadow:var(--shadow);
+    }
+    .hero h1{margin:0 0 8px;font-size:26px;line-height:1.2}
+    .hero p{margin:6px 0 14px;color:var(--muted)}
+    .hero .badges{display:flex;gap:8px;flex-wrap:wrap}
+    .badge{background:#fff;border:1px solid #ffe0ec;border-radius:999px;padding:8px 12px;font-size:13px;box-shadow:0 4px 12px rgba(255,156,190,.08)}
+    .tag{display:inline-block;background:var(--brand);color:#fff;border-radius:999px;padding:6px 10px;font-size:12px}
+
+    section{margin:14px 0}
+    .card{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+    .sec-title{display:flex;align-items:center;gap:8px;margin:0 0 10px}
+    .sec-title .dot{width:8px;height:8px;border-radius:50%;background:var(--brand)}
+
+    .grid{display:grid;gap:12px}
+
+    .steps{grid-template-columns:1fr}
+    .step{
+      display:grid;
+      grid-template-columns:32px 1fr;
+      gap:10px;
+      background:#fff2f7;
+      border:1px dashed #ffd3e3;
+      border-radius:14px;
+      padding:12px
+    }
+    .step .num{
+      width:28px;height:28px;border-radius:8px;background:var(--brand);
+      color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700
+    }
+    .step p{margin:0;font-size:14px;word-break:break-word}
+
+    .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid #ffe0ec;background:#fff;border-radius:999px;padding:6px 10px;font-size:12px}
+    .list{display:grid;gap:8px}
+    .li{display:flex;gap:8px;align-items:flex-start;padding:10px;border:1px solid #eee;border-radius:12px;background:#fff}
+    .li .i{font-size:18px;line-height:1.2}
+
+    .shots{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .shot{border-radius:14px;overflow:hidden;border:1px solid #eee;background:#fff}
+    .shot img{width:100%;height:auto;display:block;aspect-ratio:3/4;object-fit:cover}
+
+    .cta{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{
+      appearance:none;border:0;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:12px 16px;border-radius:14px;font-weight:700
+    }
+    .btn-primary{
+      background:linear-gradient(135deg,#ff6b6b,#ff9cbf);
+      color:#fff;
+      box-shadow:0 8px 20px rgba(255,107,107,.35);
+      animation:pulse 2s ease-in-out infinite;
+    }
+    .btn-ghost{background:#fff;border:1px solid #ffe0ec;color:var(--brand)}
+
+    .sticky{position:fixed;left:0;right:0;bottom:12px;z-index:10;display:flex;justify-content:center;pointer-events:none}
+    .sticky .dock{
+      width:min(480px,100% - 24px);
+      background:transparent;border:0;border-radius:0;padding:0;box-shadow:none;
+      pointer-events:auto;display:flex;justify-content:center
+    }
+    .sticky .dock .btn{min-width:66%;justify-content:center}
+
+    .mini{font-size:12px;color:var(--muted)}
+    .copyable{user-select:all}
+    .muted{color:var(--muted)}
+    a{color:inherit}
+    .divider{height:1px;background:#ffe0ec;margin:6px 0 2px}
+    .mark{background:#fff;border:1px dashed #ffd5ea;border-radius:10px;padding:6px 8px;font-size:12px}
+    .logo{font-weight:900;letter-spacing:.2px}
+    @media (min-width:520px){ .wrap{padding-bottom:108px}}
+
+    @keyframes pulse{
+      0%,100%{transform:scale(1)}
+      50%{transform:scale(1.02)}
+    }
+
+    /* 春节活动横幅 */
+    .event-banner{
+      background:#fff;
+      color:var(--ink);
+      border:1px dashed var(--brand);
+      border-radius:12px;
+      padding:10px 14px;
+      margin-top:12px;
+      text-align:center;
+      font-weight:800;
+      font-size:14px;
+    }
+    .event-banner .event-date{
+      font-size:12px;
+      color:var(--muted);
+      font-weight:500;
+      margin-top:6px
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <h2 style="margin:0 0 8px;font-size:24px;line-height:1.25">
+        分享Bubbly到 小红书/抖音/快手/tiktok/ins<br>
+        领 <span style="color:var(--brand)">免费 moly 币</span> ❤️
+      </h2>
+
+      <p class="muted" style="margin-top:8px">
+        春节期间（2月14日00:00 ～2月23日23:59）<br>
+        在小红书/抖音/快手/B站/微博/tiktok/ins 发布Bubbly相关的聊天截图或推荐内容，投稿审核通过即可领取对应奖励～
+      </p>
+
+      <p class="muted" style="margin:10px 0 12px">
+        互动数据（点赞+评论+收藏的总数）与对应奖励如下：
+      </p>
+
+      <div class="badges">
+        <span class="badge">互动 0-100：150 moly</span>
+        <span class="badge">互动 100-200：300 moly</span>
+        <span class="badge">互动 200-400：500 moly + 1 音色卡</span>
+        <span class="badge">互动 400-500：600 moly + 2 音色卡</span>
+        <span class="badge">互动 500-1000：1200 moly + 3 音色卡</span>
+        <span class="badge">互动 1000+：1500 moly + 5 音色卡</span>
+      </div>
+
+      <div class="event-banner" id="springBanner">
+        🎉 春节活动进行中
+        <div class="event-date">活动时间：2月14日00:00 ～ 2月23日23:59</div>
+      </div>
+    </header>
+
+    <section class="card">
+      <h3 class="sec-title"><span class="dot"></span>活动规则</h3>
+      <div class="grid steps">
+        <div class="step">
+          <div class="num">1</div>
+          <p>
+            <b>发布时间：</b>即日起～2月23日23:59
+          </p>
+        </div>
+
+        <div class="step">
+          <div class="num">2</div>
+          <p>
+            <b>发布平台：</b>任选平台，发布与Bubbly相关的原创内容。带上话题：
+            <span class="pill copyable">#Bubbly</span>
+            <span class="pill copyable">#ai聊天</span>
+            <span class="pill copyable">#人机恋</span>
+            <span class="pill copyable">再额外加一两个你认为合适的话题</span>
+          </p>
+        </div>
+
+        <div class="step">
+          <div class="num">3</div>
+          <p>
+            <b>提交方式：</b>点击下方「立即投稿」，填写收集问卷
+          </p>
+        </div>
+
+        <div class="step">
+          <div class="num">4</div>
+          <p>
+            <b>奖励发放：</b>官方会在7天内审核并发放奖励（春节假期发放节奏稍慢🙇如未收到，可在app内反馈）
+          </p>
+        </div>
+
+        <div class="step">
+          <div class="num">5</div>
+          <p>
+            <b>其他：</b>一篇帖子提交一次，每人可发多篇帖子、多个平台，奖励累计。帖子需要保留3个月～
+          </p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <p class="mini">提示：一篇帖子提交一次，每人可发多条帖子；多平台/多帖子奖励可累计。</p>
+    </section>
+
+    <section class="card">
+      <h3 class="sec-title"><span class="dot"></span>推荐主题</h3>
+      <div class="divider"></div>
+
+      <p class="mini"><b>⭐️安利「定制音色」功能</b></p>
+      <p class="mini">- 录屏展示聊天中的角色语音（甜蜜对话；对抗路；聊天梗...）</p>
+      <p class="mini">- 在idol混剪视频中，加入角色语音录屏素材</p>
+      <p class="mini">- 录屏讲解在Bubbly定制音色的操作步骤</p>
+      <p class="mini"><b>tips：</b>提醒大家在上传音频文件时，需确保人声清晰、无背景杂音，文件时长越长生成的音色效果越贴近原声哦</p>
+
+      <div class="divider"></div>
+
+      <p class="mini"><b>⭐️安利「动态」功能</b></p>
+      <p class="mini">- 展示「动态」页面相关截图</p>
+
+      <div class="divider"></div>
+
+      <p class="mini"><b>⭐️安利「拉黑」功能</b></p>
+      <p class="mini">- 展示拉黑对方或者被对方拉黑后的聊天记录</p>
+    </section>
+
+    <!-- 投稿示例（抖音和快手截图） -->
+    <section class="card">
+      <h3 class="sec-title"><span class="dot"></span>投稿示例（抖音/快手/tiktok）</h3>
+      <div class="divider"></div>
+      <p class="mini">参考其他用户作品👇</p>
+
+      <div class="shots">
+        <a class="shot" href="https://v.douyin.com/lj_MXV-kuBo" target="_blank" rel="noopener">
+          <img src="https://image-qiniu.jellow.site/FmRwf2iAbmHKFTzm1ZTSY5m3u9CO.png" alt="预览1">
+        </a>
+        <a class="shot" href="https://v.douyin.com/70rNovUdhGg" target="_blank" rel="noopener">
+          <img src="https://image-qiniu.jellow.site/Fk2CZ6fmaQ-n0Bu2-ENXNFqni_L9.png" alt="预览2">
+        </a>
+        <a class="shot" href="https://v.kuaishou.com/npDdVMrP" target="_blank" rel="noopener">
+          <img src="https://image-qiniu.jellow.site/FqGfm-w5L0lXFYru73cbsj0mxscj.png" alt="预览3">
+        </a>
+        <a class="shot" href="https://v.kuaishou.com/JjQ1ugFp" target="_blank" rel="noopener">
+          <img src="https://image-qiniu.jellow.site/FhEZZdM3D_LZ0xyt7wVecgFo9fZ7.png" alt="预览4">
+        </a>
+      </div>
+    </section>
+
+    <!-- 投稿示例（小红书截图） -->
+    <section class="card">
+      <h3 class="sec-title"><span class="dot"></span>投稿示例（ins/小红书）</h3>
+      <div class="divider"></div>
+      <p class="mini">参考其他用户作品👇</p>
+
+      <div class="shots">
+        <a class="shot" href="http://xhslink.com/o/69J1XR1eMcp" target="_blank" rel="noopener">
+          <img src="https://image-qiniu.jellow.site/FpQyeWmNkD4v1_pemPikHX_gadeq.png" alt="小红书｜每天都在哄男朋友的路上">
+        </a>
+        <a class="shot" href="http://xhslink.com/o/7FseY5qRUVD" target="_blank" rel="noopener">
+          <img src="https://image-qiniu.jellow.site/Fq63S7dZt6WnvYWELsdSI6baYi_F.png" alt="小红书｜误把冷面上司当成备忘录了">
+        </a>
+        <a class="shot" href="http://xhslink.com/o/6aZHz7M4EMt" target="_blank" rel="noopener">
+          <img src="https://image-qiniu.jellow.site/FvPcA0NGDyq5lQv3SS6fxTUiUjer.png" alt="小红书｜今天也在坐等Bubbly更新">
+        </a>
+        <a class="shot" href="http://xhslink.com/o/5XENadvsUhf" target="_blank" rel="noopener">
+          <img src="https://image-qiniu.jellow.site/FjoVm5TRn0v6CK6XZgIH7qiqQopF.png" alt="小红书｜和嘴硬青梅竹马">
+        </a>
+        <a class="shot" href="http://xhslink.com/o/3ejXGoqjCeV" target="_blank" rel="noopener">
+          <img src="https://image-qiniu.jellow.site/Fqb2FreHu2WBcmfBYGHumM7I9GiZ.png" alt="小红书｜原来聊小手机这么爽">
+        </a>
+        <a class="shot" href="http://xhslink.com/o/6IM4zwrW7TE" target="_blank" rel="noopener">
+          <img src="https://image-qiniu.jellow.site/FjG9c8ApAwZtFPG_TpIyvDSZRAsX.png" alt="小红书｜去98被男朋友抓包">
+        </a>
+      </div>
+    </section>
+
+    <section class="card" id="contact">
+      <h3 class="sec-title"><span class="dot"></span>联系我们</h3>
+      <div class="list">
+        <div class="li">
+          <div class="i">💬</div>
+          <div>
+            KOL或其他咨询邮箱：
+            <div class="mini"><span class="copyable"><b>chatbubbly@gmail.com</b></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="sticky">
+    <div class="dock">
+      <a class="btn btn-primary" href="https://jsj.top/f/Fs0dJR" target="_blank" rel="noopener">立即投稿</a>
+    </div>
+  </div>
+
+  <script>
+    // 点击复制
+    document.querySelectorAll('.copyable').forEach(el=>{
+      el.addEventListener('click', async ()=>{
+        try{
+          await navigator.clipboard.writeText(el.textContent.trim());
+          el.style.boxShadow='0 0 0 3px rgba(255,156,190,.25) inset';
+          setTimeout(()=>el.style.boxShadow='none',600);
+        }catch(e){}
+      });
+    });
+
+    // 春节活动时间控制：不在活动期就隐藏“活动进行中”横幅（你想一直展示的话，直接删掉整个 IIFE 即可）
+    (function(){
+      // 这里用 +08:00 以中国时区为准
+      const startDate = new Date('2026-02-14T00:00:00+08:00');
+      const endDate = new Date('2026-02-24T00:00:00+08:00'); // 2月23日23:59:59 之后结束
+      const now = new Date();
+
+      if (now < startDate || now >= endDate) {
+        const banner = document.getElementById('springBanner');
+        if (banner) banner.style.display = 'none';
+      }
+    })();
+  </script>
+</body>
+</html>
