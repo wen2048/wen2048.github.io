@@ -179,13 +179,11 @@
     // ===== 国产品牌识别（走商店）=====
     function isChinaBrandAndroid(uaLower) {
       // 华为/荣耀
-      if (/huawei/.test(uaLower)) return true;
+      // if (/huawei/.test(uaLower)) return true;
       // 小米/红米（有些 UA 会有 “mi ” 或 “miui”）
       if (/xiaomi|redmi|miui|\bmi\s/.test(uaLower)) return true;
-      // if (/huawei|honor/.test(uaLower)) return true;
-      // OPPO / realme（realme 常共用 OPPO 体系）
+      if (/huawei|honor/.test(uaLower)) return true;
       if (/oppo|realme/.test(uaLower)) return true;
-      // vivo / iqoo
       if (/vivo|iqoo/.test(uaLower)) return true;
 
       return false;
