@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Lovie</title>
+  <meta name="description" content="Lovie is an AI chat companion app for warm, playful conversations.">
+  <meta property="og:title" content="Lovie">
+  <meta property="og:description" content="Lovie is an AI chat companion app for warm, playful conversations.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#fce7f3">
+
+  <script defer data-domain="bubbly.love" src="https://plausible.midway.run/js/script.js"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QF97LX7BYP');
+  </script>
+
+  <style>
+    * { box-sizing: border-box; }
+    html { overflow-x: hidden; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: #3a2a3f;
+      background:
+        radial-gradient(1200px at 10% -10%, #fce7f3, transparent 60%),
+        radial-gradient(900px at 110% 20%, #e0f2fe, transparent 55%),
+        radial-gradient(1000px at 50% 120%, #fff0f5, transparent 60%),
+        linear-gradient(#fff, #fff7fb);
+      overflow-x: hidden;
+    }
+
+    .lang-switch {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 6;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      max-width: calc(100vw - 36px);
+    }
+    .lang-btn {
+      border: 1px solid rgba(255,255,255,.75);
+      background: rgba(255,255,255,.82);
+      color: #5d4263;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 12px;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 18px rgba(200,150,200,.18);
+    }
+    .lang-btn.active {
+      background: linear-gradient(135deg, #ff9ecf, #ff7ab8);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .wrap { min-height: 100svh; display: grid; place-items: center; padding: 24px; position: relative; z-index: 2; }
+    .card {
+      width: min(920px, 92vw); padding: 56px 28px 40px; border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255,255,255,.65), rgba(255,255,255,.35));
+      backdrop-filter: blur(12px) saturate(120%);
+      border: 1px solid #ffffffaa;
+      box-shadow: 0 20px 60px rgba(200,150,200,.25);
+      text-align: center;
+    }
+    .brand {
+      font-size: clamp(44px, 7vw, 84px); line-height: 1; margin: 0 0 14px; font-weight: 900;
+      background: linear-gradient(90deg, #ffadd6, #ffc5e6 40%, #93c5fd 85%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      text-shadow: 0 6px 24px rgba(255,160,210,.3);
+    }
+    .subtitle { font-size: clamp(16px, 2.6vw, 22px); opacity: .85; margin: 0 0 26px; }
+
+    .badges { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin: 0 0 26px; }
+    .badge { font-size: 12px; padding: 6px 10px; border-radius: 999px; background: rgba(255,255,255,.8); border: 1px solid #ffffffb3; }
+
+    .download-buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      max-width: 600px;
+      margin: 24px auto 0;
+    }
+    .btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 18px 24px; border-radius: 18px; font-weight: 600; font-size: 15px;
+      text-decoration: none; color: #3a2a3f;
+      background: linear-gradient(135deg, rgba(255,255,255,.9), rgba(255,255,255,.7));
+      border: 1px solid rgba(255,255,255,.3);
+      box-shadow: 0 8px 24px rgba(255,122,184,.15);
+      transition: all .25s ease;
+      cursor: pointer;
+    }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(255,122,184,.25); }
+    .btn.primary { background: linear-gradient(135deg, #ff9ecf, #ff7ab8); color: #fff; box-shadow: 0 12px 32px rgba(255,122,184,.35); }
+    .btn.primary:hover { box-shadow: 0 16px 40px rgba(255,122,184,.45); }
+    .btn .icon { font-size: 20px; }
+
+    .tip { margin-top: 16px; font-size: 13px; opacity: .7; }
+    footer { margin-top: 40px; font-size: 14px; }
+    footer a { color: #ff90c2; text-decoration: none; }
+
+    .mask { position: fixed; inset: 0; background: rgba(0,0,0,.6); display: none; align-items: flex-start; justify-content: center; padding: 24px; z-index: 50; }
+    .mask.show { display: flex; }
+    .mask .sheet { background: #fff; border-radius: 16px; padding: 18px 16px; width: min(560px, 92vw); box-shadow: 0 12px 40px rgba(0,0,0,.18); }
+    .mask h3 { margin: 0 0 10px; font-size: 18px; }
+    .mask p { margin: 0; font-size: 14px; color: #333; }
+    .mask .close { margin-top: 14px; display: inline-block; font-size: 14px; color: #666; text-decoration: underline; cursor: pointer; }
+
+    .decor { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 1; }
+    .heart {
+      position: absolute; width: 22px; height: 22px;
+      background: linear-gradient(145deg, #ffe1f0, #ffcbe4);
+      filter: drop-shadow(0 6px 10px rgba(255,144,194,.25)); opacity: .8;
+      animation: float 18s linear infinite, sway 6s ease-in-out infinite;
+    }
+    .heart::before, .heart::after { content: ""; position: absolute; width: 22px; height: 22px; border-radius: 50%; background: inherit; }
+    .heart::before { top: -11px; left: 0; }
+    .heart::after { left: 11px; top: 0; }
+    @keyframes float { from { top: 100vh; } to { top: -20vh; } }
+    @keyframes sway { 0%, 100% { transform: translateX(-12px) rotate(-45deg); } 50% { transform: translateX(12px) rotate(-45deg); } }
+
+    .sparkle { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #fff; opacity: .9; animation: twinkle 3.6s ease-in-out infinite; }
+    @keyframes twinkle { 0%, 100% { transform: scale(.8); opacity: .3; } 50% { transform: scale(1.4); opacity: .9; } }
+
+    @media (max-width: 640px) {
+      .lang-switch { position: static; padding: 16px 16px 0; justify-content: center; }
+      .wrap { padding-top: 16px; }
+    }
+    @media (prefers-reduced-motion: reduce) { .heart, .sparkle { animation: none; } }
+  </style>
+</head>
+
+<body>
+  <div class="lang-switch" aria-label="Language switcher">
+    <button class="lang-btn" data-lang="en" type="button">English</button>
+    <button class="lang-btn" data-lang="zh-CN" type="button">简体中文</button>
+    <button class="lang-btn" data-lang="zh-TW" type="button">繁體中文</button>
+    <button class="lang-btn" data-lang="ja" type="button">日本語</button>
+    <button class="lang-btn" data-lang="ko" type="button">한국어</button>
+  </div>
+
+  <div class="decor" aria-hidden="true">
+    <span class="heart" style="left:8%; animation-duration:20s; animation-delay:-2s"></span>
+    <span class="heart" style="left:22%; animation-duration:17s; animation-delay:-8s"></span>
+    <span class="heart" style="left:46%; animation-duration:23s; animation-delay:-12s"></span>
+    <span class="heart" style="left:70%; animation-duration:19s; animation-delay:-5s"></span>
+    <span class="heart" style="left:88%; animation-duration:21s; animation-delay:-10s"></span>
+    <span class="sparkle" style="top:16%; left:12%; animation-delay:-.6s"></span>
+    <span class="sparkle" style="top:22%; left:78%; animation-delay:-1.2s"></span>
+    <span class="sparkle" style="top:48%; left:42%; animation-delay:-.3s"></span>
+    <span class="sparkle" style="top:68%; left:26%; animation-delay:-1.8s"></span>
+    <span class="sparkle" style="top:76%; left:66%; animation-delay:-.9s"></span>
+  </div>
+
+  <div class="wrap">
+    <section class="card">
+      <h1 class="brand" data-i18n="brand">Lovie</h1>
+      <p class="subtitle" data-i18n="subtitle"></p>
+
+      <div class="badges" id="badges" aria-hidden="true"></div>
+
+      <div id="wechatTip" style="display:none">
+        <a class="btn primary" href="#" onclick="showMask();return false"><span class="icon">📱</span><span data-i18n="downloadNow"></span></a>
+        <p class="tip" data-i18n="wechatTip"></p>
+      </div>
+
+      <div id="mainDownload"></div>
+
+      <footer>
+        <p><span data-i18n="contactLabel"></span> <a href="mailto:chatbubbly@gmail.com">chatbubbly@gmail.com</a></p>
+      </footer>
+    </section>
+  </div>
+
+  <div id="wxMask" class="mask" onclick="hideMask()">
+    <div class="sheet" onclick="event.stopPropagation()">
+      <h3 data-i18n="maskTitle"></h3>
+      <p data-i18n="maskBody"></p>
+      <span class="close" onclick="hideMask()" data-i18n="maskClose"></span>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    var IOS_URL = 'https://apps.apple.com/app/bubbly/id6760651437';
+    var ANDROID_URL = 'https://play.google.com/store/apps/details?id=io.iftech.lovie';
+    var STORAGE_KEY = 'lovie-lang';
+    var supported = ['en', 'zh-CN', 'zh-TW', 'ja', 'ko'];
+    var translations = {
+      'en': {
+        brand: 'Lovie',
+        pageTitle: 'Lovie - AI chat companion',
+        pageDescription: 'Lovie is an AI chat companion app for warm, playful conversations.',
+        subtitle: 'An AI chat companion for warm, playful conversations every day',
+        badges: ['Comfort chats', 'Cute vibes', 'Bedtime support', 'Emotional connection'],
+        downloadNow: 'Download now',
+        wechatTip: 'Open this page in your browser to continue downloading.',
+        contactLabel: 'Official email',
+        maskTitle: 'Open in browser to download',
+        maskBody: 'This in-app browser does not support downloading. Tap the top-right menu and open this page in your browser.',
+        maskClose: 'Close',
+        iosCta: 'Download on the App Store',
+        androidCta: 'Get it on Google Play'
+      },
+      'zh-CN': {
+        brand: 'Lovie',
+        pageTitle: 'Lovie - AI 聊天陪伴应用',
+        pageDescription: 'Lovie 是一款 AI 聊天陪伴应用，带来温暖、有趣、随时在线的互动体验。',
+        subtitle: '温暖有趣的 AI 聊天陪伴，随时陪你说说话',
+        badges: ['治愈陪聊', '可爱氛围', '睡前安抚', '情绪共鸣'],
+        downloadNow: '立即下载',
+        wechatTip: '你在微信内，请在浏览器中打开后再下载。',
+        contactLabel: '官方邮箱',
+        maskTitle: '请在浏览器中打开后下载',
+        maskBody: '微信内不支持直接下载。请点击右上角“…”后选择“在浏览器中打开”。',
+        maskClose: '我知道了',
+        iosCta: 'App Store 下载',
+        androidCta: 'Google Play 下载'
+      },
+      'zh-TW': {
+        brand: 'Lovie',
+        pageTitle: 'Lovie - AI 聊天陪伴應用',
+        pageDescription: 'Lovie 是一款 AI 聊天陪伴應用，帶來溫暖、有趣、隨時在線的互動體驗。',
+        subtitle: '溫暖有趣的 AI 聊天陪伴，隨時陪你說說話',
+        badges: ['療癒陪聊', '可愛氛圍', '睡前安撫', '情緒共鳴'],
+        downloadNow: '立即下載',
+        wechatTip: '你正在微信內，請改用瀏覽器開啟後再下載。',
+        contactLabel: '官方信箱',
+        maskTitle: '請在瀏覽器中開啟後下載',
+        maskBody: '微信內不支援直接下載。請點擊右上角「…」並選擇「在瀏覽器中打開」。',
+        maskClose: '我知道了',
+        iosCta: 'App Store 下載',
+        androidCta: 'Google Play 下載'
+      },
+      'ja': {
+        brand: 'Lovie',
+        pageTitle: 'Lovie - AIチャットコンパニオン',
+        pageDescription: 'Lovie は、あたたかく楽しい会話を楽しめる AI チャットコンパニオンアプリです。',
+        subtitle: '毎日に寄り添う、あたたかくて楽しい AI チャット',
+        badges: ['癒やしチャット', 'かわいい雰囲気', 'おやすみ前の相手', '気持ちに寄り添う'],
+        downloadNow: '今すぐダウンロード',
+        wechatTip: 'ダウンロードを続けるには、ブラウザでこのページを開いてください。',
+        contactLabel: '公式メール',
+        maskTitle: 'ブラウザで開いてダウンロード',
+        maskBody: 'このアプリ内ブラウザではダウンロードできません。右上メニューからブラウザで開いてください。',
+        maskClose: '閉じる',
+        iosCta: 'App Store でダウンロード',
+        androidCta: 'Google Play でダウンロード'
+      },
+      'ko': {
+        brand: 'Lovie',
+        pageTitle: 'Lovie - AI 채팅 컴패니언',
+        pageDescription: 'Lovie는 따뜻하고 즐거운 대화를 위한 AI 채팅 컴패니언 앱입니다.',
+        subtitle: '매일 곁에 있어 주는 따뜻하고 즐거운 AI 채팅',
+        badges: ['감성 대화', '사랑스러운 분위기', '잠들기 전 친구', '공감형 소통'],
+        downloadNow: '지금 다운로드',
+        wechatTip: '다운로드를 계속하려면 브라우저에서 이 페이지를 열어 주세요.',
+        contactLabel: '공식 이메일',
+        maskTitle: '브라우저에서 열어 다운로드하세요',
+        maskBody: '이 인앱 브라우저에서는 다운로드를 지원하지 않습니다. 우측 상단 메뉴에서 브라우저로 열어 주세요.',
+        maskClose: '닫기',
+        iosCta: 'App Store에서 다운로드',
+        androidCta: 'Google Play에서 다운로드'
+      }
+    };
+
+    function normalizeLang(lang) {
+      if (!lang) return 'en';
+      var lower = lang.toLowerCase();
+      if (lower.indexOf('zh') === 0) {
+        return /tw|hk|hant/.test(lower) ? 'zh-TW' : 'zh-CN';
+      }
+      if (lower.indexOf('ja') === 0) return 'ja';
+      if (lower.indexOf('ko') === 0) return 'ko';
+      return 'en';
+    }
+
+    function detectLang() {
+      var fromQuery = new URLSearchParams(window.location.search).get('lang');
+      var saved = localStorage.getItem(STORAGE_KEY);
+      var browser = (navigator.languages && navigator.languages[0]) || navigator.language || 'en';
+      var candidate = fromQuery || saved || browser;
+      var normalized = normalizeLang(candidate);
+      return supported.indexOf(normalized) >= 0 ? normalized : 'en';
+    }
+
+    function renderBadges(items) {
+      document.getElementById('badges').innerHTML = items.map(function (item) {
+        return '<span class="badge">' + item + '</span>';
+      }).join('');
+    }
+
+    function renderDownloads(dict) {
+      var html = '<div class="download-buttons">';
+      html += '<a class="btn primary" href="' + IOS_URL + '" target="_blank" rel="noopener"><span class="icon">🍎</span>' + dict.iosCta + '</a>';
+      html += '<a class="btn" href="' + ANDROID_URL + '" target="_blank" rel="noopener"><span class="icon">▶</span>' + dict.androidCta + '</a>';
+      html += '</div>';
+      document.getElementById('mainDownload').innerHTML = html;
+    }
+
+    function setMeta(dict, lang) {
+      document.documentElement.lang = lang;
+      document.title = dict.pageTitle;
+      document.querySelector('meta[name="description"]').setAttribute('content', dict.pageDescription);
+      document.querySelector('meta[property="og:title"]').setAttribute('content', dict.pageTitle);
+      document.querySelector('meta[property="og:description"]').setAttribute('content', dict.pageDescription);
+    }
+
+    function applyLanguage(lang) {
+      var dict = translations[lang] || translations.en;
+      localStorage.setItem(STORAGE_KEY, lang);
+      setMeta(dict, lang);
+      document.querySelectorAll('[data-i18n]').forEach(function (node) {
+        node.textContent = dict[node.getAttribute('data-i18n')] || '';
+      });
+      renderBadges(dict.badges);
+      if (isWeChat) {
+        document.getElementById('mainDownload').innerHTML = '';
+      } else {
+        renderDownloads(dict);
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (button) {
+        button.classList.toggle('active', button.getAttribute('data-lang') === lang);
+      });
+    }
+
+    var ua = navigator.userAgent.toLowerCase();
+    var isWeChat = /micromessenger/.test(ua);
+    if (isWeChat) {
+      document.getElementById('wechatTip').style.display = 'block';
+    }
+
+    var initialLang = detectLang();
+    applyLanguage(initialLang);
+
+    document.querySelectorAll('.lang-btn').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var lang = button.getAttribute('data-lang');
+        var url = new URL(window.location.href);
+        url.searchParams.set('lang', lang);
+        window.history.replaceState({}, '', url.toString());
+        applyLanguage(lang);
+      });
+    });
+  })();
+
+  function showMask() { document.getElementById('wxMask').classList.add('show'); }
+  function hideMask() { document.getElementById('wxMask').classList.remove('show'); }
+  </script>
+</body>
+</html>
