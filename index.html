@@ -165,7 +165,7 @@
     var MARKET_URL = 'market://details?id=' + encodeURIComponent(PACKAGE_ID);
 
     // APK 兜底下载
-    var ANDROID_APK_URL = 'https://other-qiniu.jellow.site/lib6vsGyZvR7q5gI4TIH5INrvr5Q.apk';
+    var ANDROID_APK_URL = 'https://file.market.xiaomi.com/download/AppStore/04a251b069e5a4a569117aed23b43f6ce93647a21/io.iftech.bubbly_1.9.1.apk';
 
     // iOS
     var IOS_URL = 'https://apps.apple.com/app/bubbly/id6758300285';
@@ -182,7 +182,7 @@
       // if (/huawei/.test(uaLower)) return true;
       // 小米/红米（有些 UA 会有 “mi ” 或 “miui”）
       if (/xiaomi|redmi|miui|\bmi\s/.test(uaLower)) return true;
-      if (/huawei|honor/.test(uaLower)) return true;
+      if (/rongyao|honor/.test(uaLower)) return true;
       if (/oppo|realme/.test(uaLower)) return true;
       if (/vivo|iqoo/.test(uaLower)) return true;
 
